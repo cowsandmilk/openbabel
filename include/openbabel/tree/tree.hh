@@ -1,9 +1,11 @@
+/*
 
-//	STL-like templated tree class.
-//
-// Copyright (C) 2001-2009 Kasper Peeters <kasper.peeters@aei.mpg.de>
-// Distributed under the GNU General Public License version 3,
-// (eventually to be changed to the Boost Software License).
+   $Id: tree.hh,v 1.151 2008/05/07 15:46:14 peekas Exp $
+
+	STL-like templated tree class.
+	Copyright (C) 2001-2009  Kasper Peeters <kasper.peeters@aei.mpg.de>.
+
+*/
 
 /** \mainpage tree.hh
     \author   Kasper Peeters
@@ -20,6 +22,44 @@
    available.
 */
 
+
+/*
+	The tree.hh code is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; version 2 or 3.
+
+
+   This program is free software: you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/** \todo
+   - New-style move members are not completely finished yet.
+   - It would be good to have an iterator which can iterate over all
+     nodes below a given node. Something similar to the leaf iterator
+	  we have right now, but not restricted to the leaves.
+   - If a range uses const iter_base& as end iterator, things will
+     inevitably go wrong, because upcast from iter_base to a non-sibling_iter
+     is incorrect. This upcast should be removed (and then all illegal uses
+     as previously in 'equal' will be flagged by the compiler). This requires
+     new copy constructors though.
+   - There's a bug in replace(sibling_iterator, ...) when the ranges
+     sit next to each other. Turned up in append_child(iter,iter)
+     but has been avoided now.
+	- "std::operator<" does not work correctly on our iterators, and for some
+	  reason a globally defined template operator< did not get picked up.
+     Using a comparison class now, but this should be investigated.
+*/
 
 #ifndef tree_hh_
 #define tree_hh_
