@@ -481,6 +481,10 @@ class Molecule(object):
         """Remove hydrogens."""
         self.OBMol.DeleteHydrogens()
 
+    def convertdbonds(self):
+        """Convert Dative Bonds."""
+        self.OBMol.ConvertDativeBonds()
+
     def __str__(self):
         return self.write()
 
